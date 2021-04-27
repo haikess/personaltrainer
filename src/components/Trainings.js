@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
+import moment from 'moment';
 
 function Trainings() {
     const [trainings, setTrainings] = useState ([]);
@@ -18,7 +19,7 @@ function Trainings() {
     }
 
     const columns = [
-        { field: 'date', sortable: true, filter: true },
+        { field: 'date', sortable: true, filter: true, cellRenderer: (data) => { return moment(data.date).format('MM/DD/YYYY HH:mm')}},
         { field: 'duration', sortable: true, filter: true },
         { field: 'activity', sortable: true, filter: true },
         { field: 'content', sortable: true, filter: true }
