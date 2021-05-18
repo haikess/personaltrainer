@@ -7,8 +7,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { PropertyKeys } from 'ag-grid-community';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
 
-function AddCustomer(props) {
+function EditCustomer(props) {
     const [open, setOpen] = React.useState(false);
     const [customer, setCustomer] = React.useState({
         firstname: '',
@@ -21,6 +23,15 @@ function AddCustomer(props) {
     });
 
     const handleClickOpen = () => {
+      setCustomer({
+        firstname: props.customer.firstname,
+        lastname: props.customer.lastname,
+        streetaddress: props.customer.streetaddress,
+        postcode: props.customer.postcode,
+        city: props.customer.city,
+        email: props.customer.email,
+        phone: props.customer.phone
+      });
       setOpen(true);
     };
   
@@ -29,7 +40,7 @@ function AddCustomer(props) {
     };
 
     const handleSave = () => {
-        props.addCustomer(customer);
+        props.updateCustomer(props.link, customer);
         setOpen(false);
 
     }
@@ -40,11 +51,11 @@ function AddCustomer(props) {
 
     return (
         <div>
-          <Button style={{ marginTop: 10}} variant="outlined" color="primary" onClick={handleClickOpen}>
-            Add Customer
-          </Button>
+          <IconButton color="primary" onClick={handleClickOpen}>
+            <EditIcon />
+          </IconButton>
           <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">New Customer</DialogTitle>
+            <DialogTitle id="form-dialog-title">Edit Customer</DialogTitle>
             <DialogContent>
               <TextField
                 margin="dense"
@@ -117,4 +128,4 @@ function AddCustomer(props) {
 
 }
 
-export default AddCustomer;
+export default EditCustomer;
